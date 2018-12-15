@@ -4,6 +4,10 @@ import com.company.FieldAnnotations.Container;
 import com.company.FieldAnnotations.FilePath;
 import com.company.FieldAnnotations.Transformation;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Container
 @FilePath(in="inputCapital.txt", out="outputCapital.txt")
 public class CapitalCase {
@@ -14,16 +18,10 @@ public class CapitalCase {
     }
 
     private static String capitalizeString(String string) {
-        char[] chars = string.toLowerCase().toCharArray();
-        boolean found = false;
-        for (int i = 0; i < chars.length; i++) {
-            if (!found && Character.isLetter(chars[i])) {
-                chars[i] = Character.toUpperCase(chars[i]);
-                found = true;
-            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') {
-                found = false;
-            }
-        }
-        return String.valueOf(chars);
+        List<String> capitalizedWordList = Arrays.stream(string.split(" "))
+                .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1))
+                .collect(Collectors.toList());
+
+        return String.join(" ", capitalizedWordList);
     }
 }
