@@ -18,10 +18,9 @@ public class CapitalCase {
     }
 
     private static String capitalizeString(String string) {
-        List<String> capitalizedWordList = Arrays.stream(string.split(" "))
-                .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1))
-                .collect(Collectors.toList());
 
-        return String.join(" ", capitalizedWordList);
+        return Arrays.stream(string.split(" "))
+                .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1))
+                .collect(Collectors.joining(" "));
     }
 }
